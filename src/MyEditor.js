@@ -24,11 +24,15 @@ class MyEditor extends React.Component {
         }
         return false;
     }
-    renderContentAsRawJson() {
+    getContentAsRawJson() {
         const contentState = this.state.editorState.getCurrentContent();
         const raw = convertToRaw(contentState);
 
         return JSON.stringify(raw, null, 2);
+    }
+    saveContent() {
+        const json = this.getContentAsRawJson();
+        localStorage.setItem('DraftEditorContentJson', json);
     }
     render() {
         return (
@@ -46,9 +50,12 @@ class MyEditor extends React.Component {
                         handleKeyCommand={this.handleKeyCommand.bind(this)} 
                     />
                 </div>
+                <div style={{ 'margin': '10px' }}>
+                    <button onClick={this.saveContent.bind(this)}>Save content</button>
+                </div>
                 <div>
                     <pre>
-                        {this.renderContentAsRawJson()}
+                        {this.getContentAsRawJson()}
                     </pre>
                 </div>
             </div>
