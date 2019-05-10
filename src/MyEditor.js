@@ -26,12 +26,20 @@ class MyEditor extends React.Component {
     }
     render() {
         return (
-            <div style={this.editorStyles}>
-                <Editor 
-                    editorState={this.state.editorState} 
-                    onChange={this.onChange} 
-                    handleKeyCommand={this.handleKeyCommand.bind(this)} 
-                />
+            <div>
+                <div style={{ 'margin': '10px' }}>
+                    <button onClick={() => this.handleKeyCommand("bold")}>Bold</button>
+                    <button onClick={() => this.handleKeyCommand("italic")}>Italic</button>
+                    <button onClick={() => this.handleKeyCommand("underline")}>Underline</button>
+                    <button onClick={() => this.handleKeyCommand("code")}>Code</button>
+                </div>
+                <div style={this.editorStyles}>
+                    <Editor 
+                        editorState={this.state.editorState} 
+                        onChange={this.onChange} 
+                        handleKeyCommand={this.handleKeyCommand.bind(this)} 
+                    />
+                </div>
             </div>
         );
     }
