@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
 class MyEditor extends React.Component {
     editorStyles = {
@@ -34,6 +34,18 @@ class MyEditor extends React.Component {
         const json = this.getContentAsRawJson();
         localStorage.setItem('DraftEditorContentJson', json);
     }
+    loadContent() {
+        const savedData = localStorage.getItem('DraftEditorContentJson');
+        return savedData ? JSON.parse(savedData) : null;
+    }
+    setEditorContent() {
+        const rawEditorData = this.loadContent();
+        if (rawEditorData !== null) {
+            const contentState = convertFromRaw(rawEditorData);
+            const newEditorState = EditorState.createWithContent(contentState);
+            this.setState({ editorState: newEditorState });
+        }
+    }
     render() {
         return (
             <div>
@@ -52,6 +64,7 @@ class MyEditor extends React.Component {
                 </div>
                 <div style={{ 'margin': '10px' }}>
                     <button onClick={this.saveContent.bind(this)}>Save content</button>
+                    <button onClick={this.setEditorContent.bind(this)}>Load content</button>
                 </div>
                 <div>
                     <pre>
