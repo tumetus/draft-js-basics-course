@@ -1,10 +1,11 @@
 import React from 'react';
 import MyEditor from './MyEditor';
+import MyEditorHTML from './MyEditorHTML';
 
 function App() {
   return (
     <div>
-      <MyEditor />
+      <MyEditorHTML />
     </div>
   );
 }
